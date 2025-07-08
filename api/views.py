@@ -163,3 +163,24 @@ class AttachmentViewSet(viewsets.ModelViewSet):
 
 
 
+############################################1. API DashboardOverviewView###############################################
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
+from .models import ActionPlan, Task, Incident, Complaint, KPIValue
+
+class DashboardOverviewView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        data = {
+            "active_action_plans": ActionPlan.objects.filter(status='active').count(),
+            "open_tasks": Task.objects.filter(status__code='open').count(),
+            "open_incidents": Incident.objects.filter(status__code='open').count(),
+            "open_complaints": Complaint.objects.filter(status__code='in_treatment').count(),
+            "connection_rate": 94.0,  # à calculer selon logique agence
+            "global_performance": KPIValue.objects.filter(indicator__code='global_perf').last().value,
+            "revenue": 2800000000,  # À intégrer avec un modèle "FinanceKPI" si besoin
+            "transactions_per_day": 15420  # Idem
+        }
+        return Response(data)

@@ -6,7 +6,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
-from api.views import ActionPlanViewSet, ApprovalStepViewSet, AttachmentViewSet, CommentViewSet, ComplaintViewSet, CustomLoginView, DepartmentViewSet, IncidentViewSet, InternalRequestViewSet, KPIIndicatorViewSet, KPIValueViewSet, MilestoneViewSet, NotificationViewSet, ObjectiveViewSet,RoleViewSet,AgencyViewSet,DirectionViewSet, TaskAssignmentViewSet, TaskViewSet,UserViewSet
+from api.views import ActionPlanViewSet, ApprovalStepViewSet, AttachmentViewSet, CommentViewSet, ComplaintViewSet, CustomLoginView, DashboardOverviewView, DepartmentViewSet, IncidentViewSet, InternalRequestViewSet, KPIIndicatorViewSet, KPIValueViewSet, MilestoneViewSet, NotificationViewSet, ObjectiveViewSet,RoleViewSet,AgencyViewSet,DirectionViewSet, TaskAssignmentViewSet, TaskViewSet,UserViewSet
 router = DefaultRouter()
 router.register(r'roles', RoleViewSet)
 router.register(r'agencies', AgencyViewSet)
@@ -35,5 +35,6 @@ urlpatterns = router.urls
 
 urlpatterns = [
     path('', include(router.urls)),
-    path('login/',CustomLoginView.as_view(), name='api_token_auth')
+    path('login/',CustomLoginView.as_view(), name='api_token_auth'),
+     path('dashboard/overview/', DashboardOverviewView.as_view(), name='dashboard-overview'),
 ]

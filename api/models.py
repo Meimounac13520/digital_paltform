@@ -16,7 +16,10 @@ class Agency(models.Model):
     type = models.CharField(max_length=50)
     location = models.CharField(max_length=255)
     director = models.ForeignKey('User', on_delete=models.SET_NULL, null=True, related_name='directed_agencies')
-
+class User(AbstractUser):
+    phone = models.CharField(max_length=20, blank=True)
+    role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True)
+    agency = models.ForeignKey(Agency, on_delete=models.SET_NULL, null=True)
 class Direction(models.Model):
     code = models.CharField(max_length=10)
     name = models.CharField(max_length=255)
@@ -27,10 +30,7 @@ class Department(models.Model):
     name = models.CharField(max_length=255)
     direction = models.ForeignKey(Direction, on_delete=models.CASCADE)
 
-class User(AbstractUser):
-    phone = models.CharField(max_length=20, blank=True)
-    role = models.ForeignKey(Role, on_delete=models.SET_NULL, null=True)
-    agency = models.ForeignKey(Agency, on_delete=models.SET_NULL, null=True)
+
 
 class TaskPriority(models.Model):
     name = models.CharField(max_length=50)
