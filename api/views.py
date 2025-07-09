@@ -126,7 +126,7 @@ class ComplaintViewSet(viewsets.ModelViewSet):
 class ActionPlanViewSet(viewsets.ModelViewSet):
     queryset = ActionPlan.objects.all()
     serializer_class = ActionPlanSerializer
-    permission_classes = [IsDirectorOrReadOnly]
+    permission_classes = [IsAdmin]
     @action(detail=False, methods=['get'])
     def active(self, request):
         plans = self.queryset.filter(status__iexact='Actif')
@@ -136,12 +136,12 @@ class ActionPlanViewSet(viewsets.ModelViewSet):
 class ObjectiveViewSet(viewsets.ModelViewSet):
     queryset = Objective.objects.all()
     serializer_class = ObjectiveSerializer
-    permission_classes = [IsDirectorOrReadOnly]
+    # 
 
 class MilestoneViewSet(viewsets.ModelViewSet):
     queryset = Milestone.objects.all()
     serializer_class = MilestoneSerializer
-    permission_classes = [IsDirectorOrReadOnly]
+    # permission_classes = [IsDirectorOrReadOnly]
 
 class InternalRequestViewSet(viewsets.ModelViewSet):
     queryset = InternalRequest.objects.all()
@@ -151,7 +151,7 @@ class InternalRequestViewSet(viewsets.ModelViewSet):
 class ApprovalStepViewSet(viewsets.ModelViewSet):
     queryset = ApprovalStep.objects.all()
     serializer_class = ApprovalStepSerializer
-    permission_classes = [IsDirectorOrReadOnly]
+    # permission_classes = [IsDirectorOrReadOnly]
 
 class KPIIndicatorViewSet(viewsets.ModelViewSet):
     queryset = KPIIndicator.objects.all()
