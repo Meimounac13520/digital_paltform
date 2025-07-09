@@ -6,6 +6,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
+from api import analytics_views
 from api.views import ActionPlanViewSet, ApprovalStepViewSet, AttachmentViewSet, CommentViewSet, ComplaintViewSet, CustomLoginView, DashboardOverviewView, DepartmentViewSet, IncidentViewSet, InternalRequestViewSet, KPIIndicatorViewSet, KPIValueViewSet, KPIViewSet, MilestoneViewSet, NotificationViewSet, ObjectiveViewSet,RoleViewSet,AgencyViewSet,DirectionViewSet, TaskAssignmentViewSet, TaskViewSet,UserViewSet
 router = DefaultRouter()
 router.register(r'roles', RoleViewSet)
@@ -38,5 +39,11 @@ urlpatterns = router.urls
 urlpatterns = [
     path('', include(router.urls)),
     path('login/',CustomLoginView.as_view(), name='api_token_auth'),
-     path('dashboard/overview/', DashboardOverviewView.as_view(), name='dashboard-overview'),
+    path('dashboard/overview/', DashboardOverviewView.as_view(), name='dashboard-overview'),
+    path('api/analytics/incident-resolution-time/', analytics_views.incident_resolution_time),
+    path('api/analytics/client-satisfaction/', analytics_views.client_satisfaction),
+    path('api/analytics/task-completion-rate/', analytics_views.task_completion_rate),
+    path('api/analytics/incident-response-time/', analytics_views.incident_response_time),
+    path('api/analytics/incidents-over-time/', analytics_views.incidents_over_time),
+    path('api/analytics/tasks-completed-over-time/', analytics_views.tasks_completed_over_time),
 ]

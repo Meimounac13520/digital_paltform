@@ -22,6 +22,7 @@ from .serializers import (
     ActionPlanSerializer, ObjectiveSerializer, MilestoneSerializer,
     InternalRequestSerializer, KPIIndicatorSerializer, KPIValueSerializer
 )
+from api import models
 
 class CustomLoginView(TokenObtainPairView):
     serializer_class = TokenObtainPairSerializer
@@ -292,3 +293,4 @@ class KPIViewSet(viewsets.ViewSet):
             kpis = KPIValue.objects.all().order_by('-calculated_at')[:10]
         serializer = KPIValueSerializer(kpis, many=True)
         return Response(serializer.data)
+    
