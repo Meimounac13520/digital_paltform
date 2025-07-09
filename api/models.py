@@ -40,14 +40,18 @@ class TaskStatus(models.Model):
     code = models.CharField(max_length=20)
     label = models.CharField(max_length=100)
 
+
 class Task(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     due_date = models.DateField()
-    priority = models.ForeignKey(TaskPriority, on_delete=models.SET_NULL, null=True)
-    status = models.ForeignKey(TaskStatus, on_delete=models.SET_NULL, null=True)
-    creator = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
-    agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
+    priority = models.ForeignKey('TaskPriority', on_delete=models.SET_NULL, null=True)
+    status = models.ForeignKey('TaskStatus', on_delete=models.SET_NULL, null=True)
+    creator = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
+    agency = models.ForeignKey('Agency', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    completed_at = models.DateTimeField(null=True, blank=True)  # 🆕 Date d'achèvement
+
 
 class TaskAssignment(models.Model):
     task = models.ForeignKey(Task, on_delete=models.CASCADE)
@@ -69,11 +73,15 @@ class IncidentCategory(models.Model):
 class Incident(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
-    category = models.ForeignKey(IncidentCategory, on_delete=models.SET_NULL, null=True)
-    severity = models.ForeignKey(IncidentSeverity, on_delete=models.SET_NULL, null=True)
-    status = models.ForeignKey(IncidentStatus, on_delete=models.SET_NULL, null=True)
-    agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
-    reporter = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey('IncidentCategory', on_delete=models.SET_NULL, null=True)
+    severity = models.ForeignKey('IncidentSeverity', on_delete=models.SET_NULL, null=True)
+    status = models.ForeignKey('IncidentStatus', on_delete=models.SET_NULL, null=True)
+    agency = models.ForeignKey('Agency', on_delete=models.CASCADE)
+    reporter = models.ForeignKey('User', on_delete=models.SET_NULL, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    first_response_at = models.DateTimeField(null=True, blank=True)  # 🆕 Temps de 1ère réaction
+    resolved_at = models.DateTimeField(null=True, blank=True)        # 🆕 Temps de résolution
+
 
 class ComplaintStatus(models.Model):
     code = models.CharField(max_length=20)
@@ -91,10 +99,13 @@ class Complaint(models.Model):
     reference = models.CharField(max_length=50, unique=True)
     client_name = models.CharField(max_length=255)
     description = models.TextField()
-    channel = models.ForeignKey(ComplaintChannel, on_delete=models.SET_NULL, null=True)
-    category = models.ForeignKey(ComplaintCategory, on_delete=models.SET_NULL, null=True)
-    status = models.ForeignKey(ComplaintStatus, on_delete=models.SET_NULL, null=True)
-    agency = models.ForeignKey(Agency, on_delete=models.CASCADE)
+    channel = models.ForeignKey('ComplaintChannel', on_delete=models.SET_NULL, null=True)
+    category = models.ForeignKey('ComplaintCategory', on_delete=models.SET_NULL, null=True)
+    status = models.ForeignKey('ComplaintStatus', on_delete=models.SET_NULL, null=True)
+    agency = models.ForeignKey('Agency', on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    satisfaction_note = models.FloatField(null=True, blank=True)  # 🆕 Note de satisfaction (ex: 4.5)
+
 
 class ActionPlan(models.Model):
     title = models.CharField(max_length=255)

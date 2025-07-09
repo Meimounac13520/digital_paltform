@@ -142,3 +142,9 @@ class AttachmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Attachment
         fields = '__all__'
+class KPIValueSerializer(serializers.ModelSerializer):
+    indicator_name = serializers.CharField(source='indicator.name', read_only=True)
+
+    class Meta:
+        model = KPIValue
+        fields = ['indicator_name', 'period', 'value', 'calculated_at']

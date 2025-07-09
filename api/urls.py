@@ -6,7 +6,7 @@
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import obtain_auth_token
-from api.views import ActionPlanViewSet, ApprovalStepViewSet, AttachmentViewSet, CommentViewSet, ComplaintViewSet, CustomLoginView, DashboardOverviewView, DepartmentViewSet, IncidentViewSet, InternalRequestViewSet, KPIIndicatorViewSet, KPIValueViewSet, MilestoneViewSet, NotificationViewSet, ObjectiveViewSet,RoleViewSet,AgencyViewSet,DirectionViewSet, TaskAssignmentViewSet, TaskViewSet,UserViewSet
+from api.views import ActionPlanViewSet, ApprovalStepViewSet, AttachmentViewSet, CommentViewSet, ComplaintViewSet, CustomLoginView, DashboardOverviewView, DepartmentViewSet, IncidentViewSet, InternalRequestViewSet, KPIIndicatorViewSet, KPIValueViewSet, KPIViewSet, MilestoneViewSet, NotificationViewSet, ObjectiveViewSet,RoleViewSet,AgencyViewSet,DirectionViewSet, TaskAssignmentViewSet, TaskViewSet,UserViewSet
 router = DefaultRouter()
 router.register(r'roles', RoleViewSet)
 router.register(r'agencies', AgencyViewSet)
@@ -22,6 +22,8 @@ router.register(r'milestones', MilestoneViewSet)
 router.register(r'internal-requests', InternalRequestViewSet)
 router.register(r'kpi-indicators', KPIIndicatorViewSet)
 router.register(r'kpi-values', KPIValueViewSet)
+router.register(r'kpi', KPIViewSet)
+
 
 router.register('task-assignments', TaskAssignmentViewSet)
 
